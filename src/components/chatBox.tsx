@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./compomentStyles/chatbox.css";
+import "./compomentStyles/chatBox.css";
 
 const ChatBox = () => {
   const [messages, setMessages] = useState([
