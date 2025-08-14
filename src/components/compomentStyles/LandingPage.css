@@ -50,6 +50,7 @@
     cursor: pointer;
     border-radius: var(--space-xs);
     transition: background-color 0.3s ease;
+    text-decoration: none;
 }
 
 .hero-button:hover {

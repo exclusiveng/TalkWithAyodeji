@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./compomentStyles/LandingPage.css";
 
 const LandingPageHeroSection = () => {
@@ -11,7 +12,9 @@ const LandingPageHeroSection = () => {
           familiar and enchanting.
         </p>
         <div className="hero-buttons">
-          <button className="hero-button">Start Chatting</button>
+          <Link to="/chat" className="hero-button">
+            Start Chatting
+          </Link>
           {/* <button className="hero-button-secondary">Learn More</button> */}
         </div>
       </div>
