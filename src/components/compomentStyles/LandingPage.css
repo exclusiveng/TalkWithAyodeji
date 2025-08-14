@@ -1,0 +1,128 @@
+.LandingPageHeroSection {
+    display: flex;
+    align-items: center; /* ✅ vertical centering for text + image */
+    justify-content: space-between;
+    padding: var(--space-lg) var(--space-xl);
+    font-family: var(--font-normal);
+    background-color: var(--color-black);
+    color: var(--color-pink);
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.hero-text-header {
+    flex: 1;
+    min-width: 280px;
+    max-width: 600px; /* ✅ prevents text from overflowing too wide */
+}
+
+.hero-text-header h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 4vw, 2.5rem); /* ✅ scales with screen size */
+    margin-bottom: var(--space-md);
+    word-break: break-word; /* ✅ handles long words */
+}
+
+.hero-text-header p {
+    font-size: clamp(1rem, 2vw, 1.2rem); /* ✅ responsive text size */
+    margin-bottom: var(--space-lg);
+    line-height: 1.6;
+    word-break: break-word;
+}
+
+/* ===== Buttons ===== */
+.hero-buttons {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+}
+
+.hero-button {
+    display: inline-block;
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-red);
+    color: var(--color-white);
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: var(--space-xs);
+    transition: background-color 0.3s ease;
+}
+
+.hero-button:hover {
+    background-color: #a32b20;
+}
+
+.hero-button-secondary {
+    display: inline-block;
+    padding: var(--space-sm) var(--space-md);
+    background-color: transparent;
+    color: var(--color-white);
+    border: 2px solid var(--color-white);
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: var(--space-xs);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.hero-button-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== Image Section ===== */
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end; /* ✅ keeps image to the right on desktop */
+    align-items: center;
+}
+
+.hero-image img {
+    height: 600px;
+    max-width: 500px;
+    width: 100%;
+    border-radius: var(--space-sm);
+    object-fit: cover;
+    display: block;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+    .hero-text-header {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .LandingPageHeroSection {
+        flex-direction: column;
+        text-align: center;
+        padding: var(--space-lg);
+    }
+
+    .hero-text-header {
+        order: 1;
+    }
+
+    .hero-image {
+        order: 2;
+        justify-content: center; /* ✅ centers image on mobile */
+    }
+
+    .hero-image img {
+        height: 250px;
+        max-width: 100%;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+}
+
+/* ===== Global Safety Net ===== */
+html, body {
+    overflow-x: hidden;
+}

@@ -1,0 +1,23 @@
+.about-container {
+    display: flex;
+    /* align-items: center; */
+    flex-direction: column;
+    padding: var(--space-lg) var(--space-xl);
+    font-family: var(--font-normal);
+    background-color: var(--color-black);
+    color: var(--color-pink);
+    gap: var(--space-lg);
+}
+
+.about-container h1 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    margin-bottom: var(--space-md);
+}
+
+.about-container p {
+    font-size: 1.2rem;
+    margin-bottom: var(--space-lg);
+    line-height: 1.6;
+    text-align: justify;
+}

@@ -1,0 +1,135 @@
+.footer {
+    background-color: var(--color-black);
+    color: var(--color-pink);
+    padding: var(--space-xl) var(--space-lg) var(--space-md);
+    font-family: var(--font-normal);
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    /* gap: var(--space-lg); */
+    flex-wrap: wrap;
+}
+
+.footer-logo {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-logo h2 {
+    font-family: var(--font-heading);
+    margin-bottom: var(--space-sm);
+}
+
+.footer-logo p {
+    line-height: 1.6;
+}
+
+.footer-links {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-links h4,
+.footer-contact h4 {
+    font-family: var(--font-heading);
+    margin-bottom: var(--space-sm);
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: var(--space-xs);
+}
+
+.footer-links a {
+    color: var(--color-pink);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--color-red);
+}
+
+.footer-contact {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-socials ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-socials li {
+    margin-bottom: var(--space-xs);
+}
+
+.footer-socials a {
+    color: var(--color-pink);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    transition: color 0.3s ease;
+}
+
+.footer-socials a:hover {
+    color: var(--color-red);
+}
+
+.social-icon {
+    font-size: 1.2rem;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-white);
+    font-size: 0.9rem;
+    margin-top: var(--space-lg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-links ul {
+        display: inline-block;
+        text-align: left;
+    }
+
+    .footer-socials {
+        text-align: center;
+    }
+
+    .footer-socials ul {
+        display: flex;
+        justify-content: center;
+        gap: var(--space-md);
+    }
+
+    .footer-socials li {
+        margin-bottom: 0;
+    }
+
+    /* Show only icons on mobile */
+    .footer-socials a {
+        font-size: 0;
+        /* hide text without removing it for screen readers */
+    }
+
+    .footer-socials a .social-icon {
+        font-size: 1.5rem;
+        color: var(--color-pink);
+    }
+}
