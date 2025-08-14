@@ -29,12 +29,6 @@ const Navbar = () => {
                     <li className="normal-font-family">
                         <Link to="/chat" onClick={closeMenu}>Chat</Link>
                     </li>
-                    <li className="normal-font-family">
-                        <Link to="/faq" onClick={closeMenu}>FAQ</Link>
-                    </li>
-                    <li className="normal-font-family">
-                        <Link to="/contact" onClick={closeMenu}>Contact</Link>
-                    </li>
                 </ul>
             </div>
         </nav>
