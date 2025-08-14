@@ -1,24 +1,32 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/navbar.tsx";
 import LandingPageHeroSection from "./components/LandingPage.tsx";
 import AboutSection from "./components/about.tsx";
-import Footer from "./components/footer.tsx";
 import ChatBox from "./components/chatBox.tsx";
+import Footer from "./components/footer.tsx";
 
-function App() {
+function AppLayout() {
+  const location = useLocation();
+
   return (
-    <Router>
+    <>
       <Navbar />
       <Routes>
         <Route path="/" element={<LandingPageHeroSection />} />
         <Route path="/about" element={<AboutSection />} />
         <Route path="/chat" element={<ChatBox />} />
-        {/* <Route path="/faq" element={<FAQ />} />
-        <Route path="/contact" element={<Contact />} /> */}
+        {/* <Route path="/faq" element={<FAQ />} /> */}
+        {/* <Route path="/contact" element={<Contact />} /> */}
       </Routes>
-      <Footer />
-    </Router>
+      {location.pathname !== "/chat" && <Footer />}
+    </>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <Router>
+      <AppLayout />
+    </Router>
+  );
+}

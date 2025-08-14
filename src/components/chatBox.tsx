@@ -24,7 +24,7 @@ const ChatBox = () => {
     <div className="chatbox-wrapper">
       <div className="chatbox-card">
         <header className="chatbox-header">
-          <h3>TalkWithAyodeji Assistant</h3>
+          <h3>TalkWithAyodeji ChatBot</h3>
         </header>
 
         <main className="chatbox-messages">

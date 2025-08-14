@@ -13,7 +13,7 @@
   flex-direction: column;
   width: 100%;
   max-width: 800px;
-  height: 60vh; /* Half the screen height */
+  height: 85vh; /* Half the screen height */
   background: rgba(255, 255, 255, 0.05);
   border-radius: var(--space-sm);
   overflow: hidden;
