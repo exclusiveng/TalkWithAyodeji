@@ -101,6 +101,21 @@ html, body {
     font-weight: bold;
 }
 
+.logout-button {
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: var(--font-normal);
+    transition: color 0.3s ease;
+}
+
+.logout-button:hover {
+    color: var(--color-red);
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
     .menu-toggle {
@@ -125,6 +140,10 @@ html, body {
     }
 
     .nav-links a {
+        font-size: 1rem;
+    }
+    
+    .logout-button {
         font-size: 1rem;
     }
 }

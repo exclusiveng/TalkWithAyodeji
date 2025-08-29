@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "./compomentStyles/navbar.css";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const { isAuthenticated, logout } = useAuth();
     const toggleMenu = () => setIsOpen(!isOpen);
 
     const closeMenu = () => setIsOpen(false);
@@ -26,9 +28,22 @@ const Navbar = () => {
                     <li className="normal-font-family">
                         <Link to="/about" onClick={closeMenu}>About</Link>
                     </li>
-                    <li className="normal-font-family">
-                        <Link to="/chat" onClick={closeMenu}>Chat</Link>
-                    </li>
+                    {!isAuthenticated ? (
+                        <li className="normal-font-family">
+                            <Link to="/login" onClick={closeMenu}>Admin Login</Link>
+                        </li>
+                    ) : (
+                        <>
+                            <li className="normal-font-family">
+                                <Link to="/chat" onClick={closeMenu}>Chat</Link>
+                            </li>
+                            <li className="normal-font-family">
+                                <button onClick={() => { logout(); closeMenu(); }} className="logout-button">
+                                    Logout
+                                </button>
+                            </li>
+                        </>
+                    )}
                 </ul>
             </div>
         </nav>

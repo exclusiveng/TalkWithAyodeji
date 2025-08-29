@@ -4,6 +4,8 @@ import LandingPageHeroSection from "./components/LandingPage.tsx";
 import AboutSection from "./components/about.tsx";
 import ChatBox from "./components/chatBox.tsx";
 import Footer from "./components/footer.tsx";
+import Login from "./components/Login.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
 
 function AppLayout() {
   const location = useLocation();
@@ -14,7 +16,12 @@ function AppLayout() {
       <Routes>
         <Route path="/" element={<LandingPageHeroSection />} />
         <Route path="/about" element={<AboutSection />} />
-        <Route path="/chat" element={<ChatBox />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/chat" element={
+            <ProtectedRoute>
+                <ChatBox />
+            </ProtectedRoute>
+        } />
         {/* <Route path="/faq" element={<FAQ />} /> */}
         {/* <Route path="/contact" element={<Contact />} /> */}
       </Routes>

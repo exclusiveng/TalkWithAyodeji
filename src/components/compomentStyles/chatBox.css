@@ -83,6 +83,11 @@
   color: var(--color-white);
 }
 
+.chatbox-input input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .chatbox-input button {
   padding: var(--space-sm) var(--space-md);
   background: var(--color-red);
@@ -92,8 +97,31 @@
   transition: background 0.3s ease;
 }
 
-.chatbox-input button:hover {
+.chatbox-input button:hover:not(:disabled) {
   background: #a32b20;
+}
+
+.chatbox-input button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Typing indicator */
+.typing-indicator {
+  display: inline-block;
+  animation: typing 1.4s infinite;
+}
+
+@keyframes typing {
+  0%, 20% { content: "Typing"; }
+  40% { content: "Typing."; }
+  60% { content: "Typing.."; }
+  80%, 100% { content: "Typing..."; }
+}
+
+/* Loading state improvements */
+.chat-message.bot.loading {
+  opacity: 0.7;
 }
 
 /* Mobile adjustments */
