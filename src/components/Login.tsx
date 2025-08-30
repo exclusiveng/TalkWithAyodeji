@@ -18,27 +18,6 @@ const Login = () => {
         }
     }, [isAuthenticated, navigate]);
 
-    const testConnection = async () => {
-        try {
-            console.log("Testing API connection...");
-            
-            // Test the main endpoint
-            const response = await fetch("https://talkwithayodeji.onrender.com/api/Auth/admin/login", {
-                method: "OPTIONS",
-                mode: "cors",
-            });
-            
-            if (response.ok) {
-                console.log("✅ API connection successful");
-            } else {
-                console.log("❌ API connection failed");
-            }
-            
-        } catch (err) {
-            console.error("❌ Connection test error:", err);
-        }
-    };
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!username.trim() || !password.trim()) {
