@@ -1,4 +1,11 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
+import DocumentUpload from "./components/DocumentUpload";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Navbar from "./components/navbar.tsx";
 import LandingPageHeroSection from "./components/LandingPage.tsx";
 import AboutSection from "./components/about.tsx";
@@ -16,7 +23,15 @@ function AppLayout() {
         <Route path="/" element={<LandingPageHeroSection />} />
         <Route path="/about" element={<AboutSection />} />
         <Route path="/login" element={<Login />} />
-  <Route path="/chat" element={<ChatBox />} />
+        <Route
+          path="/upload"
+          element={
+            <ProtectedRoute>
+              <DocumentUpload />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/chat" element={<ChatBox />} />
         {/* <Route path="/faq" element={<FAQ />} /> */}
         {/* <Route path="/contact" element={<Contact />} /> */}
       </Routes>
