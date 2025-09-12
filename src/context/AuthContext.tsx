@@ -1,23 +1,10 @@
-import { createContext, useContext, useState, useEffect } from "react";
+
+import { useState, useEffect } from "react";
 import type { ReactNode } from "react";
-import { setAuthToken } from "../middleware/signalrService";
+import { AuthContext } from "./AuthContextInstance";
+import type { AuthContextType } from "./AuthContextInstance";
 
-interface AuthContextType {
-    isAuthenticated: boolean;
-    token: string | null;
-    login: (token: string) => void;
-    logout: () => void;
-}
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-export const useAuth = () => {
-    const context = useContext(AuthContext);
-    if (context === undefined) {
-        throw new Error("useAuth must be used within an AuthProvider");
-    }
-    return context;
-};
 
 interface AuthProviderProps {
     children: ReactNode;
@@ -33,8 +20,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         if (storedToken) {
             setToken(storedToken);
             setIsAuthenticated(true);
-            // Set the auth token for SignalR service
-            setAuthToken(storedToken);
+
         }
     }, []);
 
@@ -42,16 +28,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         localStorage.setItem("jwt_token", newToken);
         setToken(newToken);
         setIsAuthenticated(true);
-        // Set the auth token for SignalR service
-        setAuthToken(newToken);
+
     };
 
     const logout = () => {
         localStorage.removeItem("jwt_token");
         setToken(null);
         setIsAuthenticated(false);
-        // Clear the auth token from SignalR service
-        setAuthToken(null);
+
     };
 
     const value: AuthContextType = {

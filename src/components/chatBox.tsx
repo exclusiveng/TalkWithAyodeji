@@ -1,30 +1,38 @@
+// Type guards for message rendering
+function hasStringMessage(obj: unknown): obj is { message: string } {
+  return (
+    typeof obj === "object" &&
+    obj !== null &&
+    "message" in obj &&
+    typeof (obj as { message: unknown }).message === "string"
+  );
+}
+function hasErrors(obj: unknown): obj is { errors: unknown } {
+  return (
+    typeof obj === "object" &&
+    obj !== null &&
+    "errors" in obj
+  );
+}
 import { useState, useEffect } from "react";
 import "./compomentStyles/chatBox.css";
-import { startConnection, sendMessage, setAuthToken } from "../middleware/signalrService";
-import type { ChatMessage } from "../middleware/signalrService";
-import { useAuth } from "../context/AuthContext";
+import { startConnection, sendMessage } from "../middleware/signalrService";
+
+
+type ChatMessage = {
+  user: string;
+  message: string | { [key: string]: unknown };
+};
+
 
 const ChatBox = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
-  const { token, isAuthenticated } = useAuth();
+  
   const user = "User";
 
   useEffect(() => {
-    if (!isAuthenticated || !token) {
-      setMessages([
-        {
-          user: "Bot",
-          message: "Please log in to start chatting."
-        }
-      ]);
-      return;
-    }
-
-    // Set the auth token for the SignalR service
-    setAuthToken(token);
-
     // Start SignalR connection
     startConnection((msg: ChatMessage) => {
       setMessages((prev) => [...prev, msg]);
@@ -37,10 +45,10 @@ const ChatBox = () => {
         message: "Hello! I'm TalkWithAyodeji ChatBot. How can I help you today?"
       }
     ]);
-  }, [isAuthenticated, token]);
+  }, []);
 
   const handleSend = async () => {
-    if (!input.trim() || isLoading || !isAuthenticated || !token) return;
+    if (!input.trim() || isLoading) return;
 
     const userMessage: ChatMessage = { user, message: input };
     setMessages((prev) => [...prev, userMessage]);
@@ -48,19 +56,12 @@ const ChatBox = () => {
     setIsLoading(true);
 
     try {
-      // Send message via SignalR/HTTP
-      await sendMessage(user, input, (botResponse: ChatMessage) => {
-        setMessages((prev) => [...prev, botResponse]);
-      });
-
-      // The response will come through the SignalR connection or HTTP fallback
-      // We'll handle it in the message callback
+      // Send message via SignalR only
+      await sendMessage(input);
       setIsLoading(false);
-
     } catch (error) {
       console.error("Error sending message:", error);
       setIsLoading(false);
-      
       // Show error message
       const errorMessage: ChatMessage = {
         user: "Bot",
@@ -70,23 +71,7 @@ const ChatBox = () => {
     }
   };
 
-  // If not authenticated, show login message
-  if (!isAuthenticated || !token) {
-    return (
-      <div className="chatbox-wrapper">
-        <div className="chatbox-card">
-          <header className="chatbox-header">
-            <h3>TalkWithAyodeji ChatBot</h3>
-          </header>
-          <main className="chatbox-messages">
-            <div className="chat-message bot">
-              <strong>Bot: </strong>Please log in to start chatting.
-            </div>
-          </main>
-        </div>
-      </div>
-    );
-  }
+
 
   return (
     <div className="chatbox-wrapper">
@@ -96,14 +81,48 @@ const ChatBox = () => {
         </header>
 
         <main className="chatbox-messages">
-          {messages.map((msg, index) => (
-            <div
-              key={index}
-              className={`chat-message ${msg.user === user ? "user" : "bot"}`}
-            >
-              <strong>{msg.user}: </strong>{msg.message}
-            </div>
-          ))}
+          {messages.map((msg, index) => {
+            const isCurrentUser = msg.user === user;
+            const displayName = isCurrentUser ? "You" : (msg.user === "Bot" ? "Bot" : "User");
+            let displayMessage: string;
+            if (typeof msg.message === "string") {
+              displayMessage = msg.message;
+            } else if (
+              msg.message &&
+              typeof msg.message === "object" &&
+              "data" in msg.message &&
+              typeof (msg.message as { data?: unknown }).data !== "undefined"
+            ) {
+              // Prefer showing 'data' if present
+              const data = (msg.message as { data?: unknown }).data;
+              displayMessage = typeof data === "string"
+                ? data
+                : JSON.stringify(data);
+            } else if (
+              msg.message &&
+              typeof msg.message === "object" &&
+              hasStringMessage(msg.message)
+            ) {
+              displayMessage = msg.message.message;
+            } else if (
+              msg.message &&
+              typeof msg.message === "object" &&
+              hasErrors(msg.message)
+            ) {
+              displayMessage = "Sorry, something went wrong. Please try again later.";
+            } else {
+              displayMessage = "[Unrecognized message format]";
+            }
+            return (
+              <div
+                key={index}
+                className={`chat-message ${isCurrentUser ? "user" : "bot"}`}
+              >
+                <strong>{displayName}: </strong>
+                {displayMessage}
+              </div>
+            );
+          })}
           {isLoading && (
             <div className="chat-message bot">
               <strong>Bot: </strong>

@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+
 import "./compomentStyles/LandingPage.css";
 
 const LandingPageHeroSection = () => {
-  const { isAuthenticated } = useAuth();
-  
   return (
     <div className="LandingPageHeroSection">
       <div className="hero-text-header">
@@ -15,10 +13,9 @@ const LandingPageHeroSection = () => {
           familiar and enchanting.
         </p>
         <div className="hero-buttons">
-          <Link to={isAuthenticated ? "/chat" : "/login"} className="hero-button">
-            {isAuthenticated ? "Continue Chatting" : "Admin Login"}
+          <Link to="/chat" className="hero-button">
+            Start Chatting
           </Link>
-          {/* <button className="hero-button-secondary">Learn More</button> */}
         </div>
       </div>
 

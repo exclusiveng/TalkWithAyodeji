@@ -8,22 +8,6 @@ export interface ChatMessage {
 
 let connection: signalR.HubConnection | null = null;
 let useHttpFallback = false;
-let authToken: string | null = null;
-
-/**
- * Sets the authentication token for the chat service
- * @param token JWT token for authentication
- */
-export const setAuthToken = (token: string | null): void => {
-  authToken = token;
-  
-  // If we have a token and SignalR is connected, update the connection
-  if (token && connection) {
-    connection.stop();
-    connection = null;
-    useHttpFallback = false;
-  }
-};
 
 /**
  * Starts a SignalR connection and sets up message listener
@@ -32,17 +16,9 @@ export const setAuthToken = (token: string | null): void => {
 export const startConnection = async (
   onMessageReceived: (msg: ChatMessage) => void
 ): Promise<void> => {
-  if (!authToken) {
-    console.error("No authentication token available");
-    useHttpFallback = true;
-    return;
-  }
-
   try {
     connection = new signalR.HubConnectionBuilder()
-      .withUrl("https://talkwithayodeji.onrender.com/api/Admin/ask-ai", {
-        accessTokenFactory: () => authToken || ""
-      })
+      .withUrl("https://talkwithayodeji.onrender.com/chat")
       .withAutomaticReconnect()
       .build();
 
@@ -54,66 +30,28 @@ export const startConnection = async (
     console.log("SignalR Connected.");
     useHttpFallback = false;
   } catch (err) {
-    console.error("SignalR connection failed, falling back to HTTP: ", err);
-    useHttpFallback = true;
+    console.error("SignalR connection failed: ", err);
+    useHttpFallback = false;
   }
 };
 
 /**
- * Sends a message to the SignalR hub or falls back to HTTP
+ * Sends a message to the SignalR hub
  * @param user sender's username
  * @param message text message
- * @param onResponse callback for handling the response (optional)
  */
 export const sendMessage = async (
-  user: string, 
-  message: string, 
-  onResponse?: (msg: ChatMessage) => void
+  // user: string,
+  question: string
 ): Promise<void> => {
-  if (!authToken) {
-    console.error("No authentication token available");
-    return;
-  }
-
   if (connection && !useHttpFallback) {
     try {
-      await connection.invoke("SendMessage", user, message);
+      await connection.invoke("AskAIQuestion", question);
+      return;
     } catch (err) {
-      console.error("SignalR send failed, falling back to HTTP: ", err);
-      useHttpFallback = true;
-      // Fall through to HTTP fallback
+      console.error("SignalR send failed:", err);
     }
-  }
-  
-  // HTTP fallback if SignalR is not available
-  if (useHttpFallback || !connection) {
-    try {
-      const response = await fetch(`https://talkwithayodeji.onrender.com/api/Admin/ask-ai?question=${encodeURIComponent(message)}`, {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          "Accept": "application/json",
-          "Authorization": `Bearer ${authToken}`,
-        },
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Message sent via HTTP:", result);
-        
-        // If we have a callback, trigger it with the bot response
-        if (onResponse && result.success && result.data) {
-          const botMessage: ChatMessage = {
-            user: "Bot",
-            message: result.data
-          };
-          onResponse(botMessage);
-        }
-      } else {
-        console.error("HTTP send failed:", response.status);
-      }
-    } catch (err) {
-      console.error("HTTP fallback also failed:", err);
-    }
+  } else {
+    console.error("SignalR connection is not available. Message not sent.");
   }
 };
