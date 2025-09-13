@@ -1,9 +1,19 @@
 /* Document Upload - Unified App Style */
 
+
+:root {
+  --background-main: var(--color-black);
+}
+
+body {
+  background: var(--background-main);
+}
+
 .document-upload-container {
   max-width: 420px;
   margin: 48px auto;
   background: var(--color-black);
+  background-color: var(--color-black);
   border-radius: 18px;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
   padding: var(--space-lg);
