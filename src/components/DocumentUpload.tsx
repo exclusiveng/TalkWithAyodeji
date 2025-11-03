@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import "../components/compomentStyles/DocumentUpload.css";
 import { UploadCloud, File, CheckCircle, AlertCircle } from "lucide-react";
+import { useAuth } from "../context/useAuth";
 
 const DocumentUpload: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -8,6 +9,7 @@ const DocumentUpload: React.FC = () => {
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const { token } = useAuth();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files?.[0] || null);
@@ -34,8 +36,10 @@ const DocumentUpload: React.FC = () => {
       // Replace with your actual upload endpoint
       const response = await fetch("https://talkwithayodeji.onrender.com/api/admin/upload-document", {
         method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         body: formData,
-        credentials: "include",
       });
       if (!response.ok) throw new Error("Upload failed");
       setSuccess("Document uploaded successfully!");
