@@ -1,5 +1,5 @@
 import "./compomentStyles/footer.css";
-import { FaTwitter, FaInstagram, FaLinkedin, FaFacebook } from "react-icons/fa";
+import { Twitter, Instagram, Linkedin, Facebook } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -43,7 +43,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaTwitter className="social-icon" /> Twitter
+                <Twitter className="social-icon" /> Twitter
               </a>
             </li>
             <li>
@@ -52,7 +52,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaInstagram className="social-icon" /> Instagram
+                <Instagram className="social-icon" /> Instagram
               </a>
             </li>
             <li>
@@ -61,7 +61,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaLinkedin className="social-icon" /> LinkedIn
+                <Linkedin className="social-icon" /> LinkedIn
               </a>
             </li>
             <li>
@@ -70,7 +70,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaFacebook className="social-icon" /> Facebook
+                <Facebook className="social-icon" /> Facebook
               </a>
             </li>
           </ul>

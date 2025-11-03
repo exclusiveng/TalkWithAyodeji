@@ -1,149 +1,140 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
-
-/* ===== Global Spacing & Theme Variables ===== */
-:root {
-    --space-xs: 4px;
-    --space-sm: 8px;
-    --space-md: 16px;
-    --space-lg: 24px;
-    --space-xl: 32px;
-
-    --color-black: rgb(17, 17, 17);
-    --color-pink: #F4E9D8;
-    --color-white: #ffffff;
-    --color-red: #C1442E;
-
-    --font-normal: "IBM Plex Sans", sans-serif;
-    --font-heading: "Fraunces", serif;
-}
-
-html, body {
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-/* ===== Reset ===== */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 /* ===== Navbar ===== */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-md) var(--space-lg);
-    background-color: var(--color-black);
-    color: var(--color-white);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* soft white */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #2a2a2a;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
 }
 
 .navbar-logo {
-    font-family: var(--font-normal);
-    margin: var(--space-sm);
+  font-family: "Inter", sans-serif;
 }
 
 .navbar-logo a {
-  color: var(--color-pink);
+  color: #f0f0f0;
+  font-weight: 700;
+  font-size: 1.5rem;
   text-decoration: none;
-  font-weight: bold;
-}
-
-.navbar-logo a:hover {
-  color: var(--color-white);
+  letter-spacing: -0.05em;
 }
 
 /* ===== Menu Toggle ===== */
 .menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    color: var(--color-white);
-    cursor: pointer;
-    z-index: 1001;
+  display: none;
+  background: none;
+  border: none;
+  color: #f0f0f0;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1001; /* Ensure it's above the overlay when closed */
 }
 
 /* ===== Overlay Menu (Mobile) ===== */
 .nav-overlay {
-    position: fixed;
-    inset: 0; /* shorthand for top:0; right:0; bottom:0; left:0 */
-    background-color: var(--color-black);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: translateY(-100%);
-    transition: transform 0.3s ease-in-out;
-    z-index: 1000;
-}
-
-.nav-overlay.open {
-    transform: translateY(0);
+  display: none;
 }
 
 .nav-links {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
-    text-align: center;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+  align-items: center;
 }
 
-.nav-links li {
-    list-style: none;
+.nav-links a,
+.logout-button {
+  color: #a0a0a0;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+  position: relative;
+  padding: 0.5rem 0;
 }
 
-.nav-links a {
-    color: var(--color-white);
-    text-decoration: none;
-    font-size: 1.5rem;
-    font-weight: bold;
+.nav-links a:hover,
+.logout-button:hover {
+  color: #ffffff;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(90deg, #4f46e5, #8b5cf6);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
 }
 
 .logout-button {
-    background: none;
-    border: none;
-    color: var(--color-white);
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    font-family: var(--font-normal);
-    transition: color 0.3s ease;
-}
-
-.logout-button:hover {
-    color: var(--color-red);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-    }
+  .desktop-links {
+    display: none; /* Hide desktop links on mobile */
+  }
+
+  .menu-toggle {
+    display: block; /* Show hamburger icon */
+  }
+
+  .nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+  }
+
+  .nav-overlay.open {
+    transform: translateX(0);
+  }
+
+  .nav-overlay .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .nav-overlay .nav-links a,
+  .nav-overlay .logout-button {
+    font-size: 1.5rem;
+    color: #e0e0e0;
+  }
 }
 
 @media (min-width: 769px) {
-    .nav-overlay {
-        position: static;
-        background: none;
-        transform: none;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-    }
-
-    .nav-links {
-        flex-direction: row;
-        gap: var(--space-lg);
-        text-align: right;
-    }
-
-    .nav-links a {
-        font-size: 1rem;
-    }
-    
-    .logout-button {
-        font-size: 1rem;
-    }
+  .menu-toggle {
+    display: none;
+  }
 }

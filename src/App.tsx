@@ -7,7 +7,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import Navbar from "./components/navbar.tsx";
-import LandingPageHeroSection from "./components/LandingPage.tsx";
+import LandingPage from "./components/LandingPage.tsx"; // No change needed here if it was already correct
 import AboutSection from "./components/about.tsx";
 import ChatBox from "./components/chatBox.tsx";
 import Footer from "./components/footer.tsx";
@@ -20,7 +20,7 @@ function AppLayout() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<LandingPageHeroSection />} />
+        <Route path="/" element={<LandingPage />} /> 
         <Route path="/about" element={<AboutSection />} />
         <Route path="/login" element={<Login />} />
         <Route

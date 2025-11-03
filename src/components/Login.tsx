@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { User, Lock } from "lucide-react";
 import { useAuth } from "../context/useAuth";
 import "./compomentStyles/Login.css";
 
@@ -101,20 +102,20 @@ const Login = () => {
 
                 <form className="login-form" onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="username">Username</label>
+                        <User className="input-icon" />
                         <input
                             type="text"
                             id="username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             placeholder="Enter your username"
-                            className="form-input"
+                            className="form-input" 
                             required
                         />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="password">Password</label>
+                        <Lock className="input-icon" />
                         <input
                             type="password"
                             id="password"
@@ -139,10 +140,6 @@ const Login = () => {
                         
                     </div>
                 </form>
-
-                <div className="login-footer">
-                    <p>Contact your administrator if you need access credentials.</p>
-                </div>
             </div>
         </div>
     );

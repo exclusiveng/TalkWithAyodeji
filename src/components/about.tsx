@@ -2,17 +2,17 @@ import "./compomentStyles/about.css";
 
 const AboutSection = () => {
   return (
-    <>
-      <div className="about-container">
-        <h1 id="AboutUs">About TalkWithAyodeji</h1>
+    <div className="about-container">
+      <div className="about-content">
+        <h1>About Me</h1>
         <p>
-          TalkWithAyodeji is a conversational platform designed to deliver warm,
-          engaging, and intelligent interactions. Built with precision and a
-          focus on user experience, it blends friendliness with professionalism,
-          ensuring every conversation feels natural, personal, and meaningful.
+          Hi, I’m Ayodeji, a software engineer passionate about .NET, AI, and
+          SaaS development. I created this chatbot so you can get to know me in
+          a more engaging way, whether you’re a recruiter, collaborator, or just
+          curious.
         </p>
       </div>
-    </>
+    </div>
   );
 };
 

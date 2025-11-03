@@ -13,6 +13,22 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root {
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+
+    --color-black: rgb(17, 17, 17);
+    --color-pink: #F4E9D8;
+    --color-white: #ffffff;
+    --color-red: #C1442E;
+
+    --font-normal: "IBM Plex Sans", sans-serif;
+    --font-heading: "Fraunces", serif;
+}
+
 a {
   font-weight: 500;
   color: #646cff;

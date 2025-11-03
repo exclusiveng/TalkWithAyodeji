@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
+/* ===== Global Spacing & Theme Variables ===== */
+:root {
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+
+    --color-black: rgb(17, 17, 17);
+    --color-pink: #F4E9D8;
+    --color-white: #ffffff;
+    --color-red: #C1442E;
+
+    --font-normal: "IBM Plex Sans", sans-serif;
+    --font-heading: "Fraunces", serif;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ===== Reset ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}

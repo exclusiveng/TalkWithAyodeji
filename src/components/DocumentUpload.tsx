@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import "../components/compomentStyles/DocumentUpload.css";
+import { UploadCloud, File, CheckCircle, AlertCircle } from "lucide-react";
 
 const DocumentUpload: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -53,12 +54,7 @@ const DocumentUpload: React.FC = () => {
 
   return (
     <div className="document-upload-container">
-      <h2>
-        <span role="img" aria-label="document" style={{marginRight: 8}}>
-          📄
-        </span>
-        Upload Document
-      </h2>
+      <h2 className="upload-title">Upload Document</h2>
       <form className="document-upload-form" onSubmit={handleSubmit}>
         <div className="upload-dropzone" onClick={handleBrowseClick} tabIndex={0} role="button" aria-label="Browse for document">
           <input
@@ -73,18 +69,22 @@ const DocumentUpload: React.FC = () => {
           />
           <div className="dropzone-content">
             {file ? (
-              <span className="file-name">{file.name}</span>
+              <>
+                <File className="dropzone-icon" />
+                <span className="file-name">{file.name}</span>
+              </>
             ) : (
               <>
-                <span className="dropzone-icon" role="img" aria-label="upload">⬆️</span>
+                <UploadCloud className="dropzone-icon" />
                 <span className="dropzone-text">Click to select or drag a document here</span>
+                <span className="dropzone-subtext">PDF, DOC, DOCX, or TXT</span>
               </>
             )}
           </div>
         </div>
         <button
           type="submit"
-          className="upload-btn"
+          className="upload-button"
           disabled={uploading}
         >
           {uploading ? (
@@ -93,8 +93,14 @@ const DocumentUpload: React.FC = () => {
             "Upload"
           )}
         </button>
-        {success && <div className="upload-success upload-success-black">{success}</div>}
-        {error && <div className="upload-error">{error}</div>}
+        {success && (
+          <div className="upload-feedback success">
+            <CheckCircle /> {success}
+          </div>
+        )}
+        {error && (
+          <div className="upload-feedback error"><AlertCircle /> {error}</div>
+        )}
       </form>
     </div>
   );
