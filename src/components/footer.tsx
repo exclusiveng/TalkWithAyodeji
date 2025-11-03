@@ -1,5 +1,5 @@
 import "./compomentStyles/footer.css";
-import { Twitter, Instagram, Linkedin, Facebook } from "lucide-react";
+import { Twitter, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -30,7 +30,7 @@ const Footer = () => {
 
         <div className="footer-contact">
           <h4>Contact</h4>
-          <p>Email: hello@talkwithayodeji.com</p>
+          <p>Email: Ayodejishoga1@gmail.com</p>
           <p>Phone: +234 123 456 7890</p>
         </div>
 
@@ -46,7 +46,7 @@ const Footer = () => {
                 <Twitter className="social-icon" /> Twitter
               </a>
             </li>
-            <li>
+            {/* <li>
               <a
                 href="https://instagram.com/talkwithayodeji"
                 target="_blank"
@@ -54,17 +54,17 @@ const Footer = () => {
               >
                 <Instagram className="social-icon" /> Instagram
               </a>
-            </li>
+            </li> */}
             <li>
               <a
-                href="https://linkedin.com/company/talkwithayodeji"
+                href="https://www.linkedin.com/in/ayodeji-shoga-37b780199"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <Linkedin className="social-icon" /> LinkedIn
               </a>
             </li>
-            <li>
+            {/* <li>
               <a
                 href="https://facebook.com/talkwithayodeji"
                 target="_blank"
@@ -72,7 +72,7 @@ const Footer = () => {
               >
                 <Facebook className="social-icon" /> Facebook
               </a>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
